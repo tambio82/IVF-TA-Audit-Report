@@ -2,6 +2,15 @@
 app.py - IVF Tâm Anh HN | Quality Audit System
 Main Streamlit Application
 """
+import sys
+import os
+
+# Fix: đảm bảo thư mục gốc của project luôn có trong sys.path
+# (cần thiết khi deploy trên Streamlit Cloud)
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
 import streamlit as st
 
 # ── Page config (MUST be first Streamlit command) ─────────────────────────────
