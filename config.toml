@@ -1,0 +1,7 @@
+[server]
+headless = true
+
+[runner]
+# Fix "No module named 'utils'" on Streamlit Cloud
+# Thêm thư mục gốc vào Python path khi Streamlit chạy
+pythonpath = ["."]
