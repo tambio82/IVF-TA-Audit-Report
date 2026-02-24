@@ -2,6 +2,8 @@
 modules/module3_dashboard.py - Dashboard và biểu đồ thống kê
 Phiên bản nâng cấp với FMEA Radar chi tiết
 """
+import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
+
 import streamlit as st
 import pandas as pd
 import numpy as np

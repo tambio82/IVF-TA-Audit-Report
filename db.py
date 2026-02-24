@@ -1,7 +1,8 @@
 """
 utils/db.py - Supabase database connection and helper functions
 """
-import os
+import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
+
 import streamlit as st
 from supabase import create_client, Client
 from dotenv import load_dotenv

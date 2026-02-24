@@ -1,6 +1,8 @@
 """
 utils/auth.py - Authentication helpers
 """
+import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
+
 import bcrypt
 import streamlit as st
 from utils.db import get_db, fetch_all, insert_record, update_record, delete_record

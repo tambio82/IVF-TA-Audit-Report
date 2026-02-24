@@ -1,6 +1,8 @@
 """
 modules/module4_export.py - Xuất báo cáo
 """
+import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
+
 import streamlit as st
 import pandas as pd
 from io import BytesIO

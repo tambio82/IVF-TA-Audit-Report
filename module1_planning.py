@@ -1,6 +1,8 @@
 """
 modules/module1_planning.py - Quản lý mục tiêu và kế hoạch Quality Audit
 """
+import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
+
 import streamlit as st
 from datetime import date
 from utils.db import (
