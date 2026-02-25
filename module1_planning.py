@@ -1,16 +1,14 @@
 """
 modules/module1_planning.py - Quản lý mục tiêu và kế hoạch Quality Audit
 """
-import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
-
 import streamlit as st
 from datetime import date
-from utils.db import (
+from db import (
     get_db, fetch_all, insert_record, update_record, delete_record,
     get_plans, get_objectives_for_plan, get_kpis_for_objective,
     get_departments, get_department_map
 )
-from utils.auth import is_admin
+from auth import is_admin
 
 ISSUE_TYPES = {
     "new_objective": "🆕 Mục tiêu mới",

@@ -1,11 +1,9 @@
 """
-utils/auth.py - Authentication helpers
+auth.py - Authentication helpers
 """
-import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
-
 import bcrypt
 import streamlit as st
-from utils.db import get_db, fetch_all, insert_record, update_record, delete_record
+from db import get_db, fetch_all, insert_record, update_record, delete_record
 
 
 def hash_password(password: str) -> str:
@@ -54,7 +52,6 @@ def logout():
 
 
 def require_login():
-    """Call at start of each page to enforce authentication."""
     init_session()
     if not is_logged_in():
         show_login_page()
@@ -62,10 +59,6 @@ def require_login():
 
 
 def show_login_page():
-    st.markdown("""
-    <div style='max-width:400px;margin:80px auto;'>
-    """, unsafe_allow_html=True)
-
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("### 🏥 IVF Tâm Anh HN")
@@ -86,12 +79,11 @@ def show_login_page():
             else:
                 st.error("Sai tên đăng nhập hoặc mật khẩu.")
 
-    # Hint: create first admin
+    # Auto-create default admin if no users exist
     db = get_db()
     count = db.table("audit_users").select("id", count="exact").execute().count
     if count == 0:
-        st.info("💡 Chưa có tài khoản nào. Tài khoản admin mặc định: **admin / Admin@123**")
-        # Auto-create default admin
+        st.info("💡 Chưa có tài khoản. Tạo admin mặc định: **admin / Admin@123**")
         insert_record("audit_users", {
             "username": "admin",
             "password_hash": hash_password("Admin@123"),

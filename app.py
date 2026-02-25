@@ -1,11 +1,10 @@
-import sys, os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
 """
 app.py - IVF Tâm Anh HN | Quality Audit System
+Cấu trúc flat: tất cả files nằm cùng thư mục với app.py
 """
 import streamlit as st
 
+# ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Quality Audit | IVF Tâm Anh HN",
     page_icon="🏥",
@@ -13,14 +12,16 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-from utils.auth import require_login, is_admin, current_user, logout, init_session
-from modules import module1_planning
-from modules import module2_reporting
-from modules import module3_dashboard
-from modules import module4_export
-from modules import module5_users
-from modules import module6_options
+# ── Imports (tất cả cùng cấp app.py, không dùng subfolder) ────────────────────
+from auth import require_login, is_admin, current_user, logout, init_session
+import module1_planning
+import module2_reporting
+import module3_dashboard
+import module4_export
+import module5_users
+import module6_options
 
+# ── Custom CSS ─────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
 [data-testid="stSidebar"] {
@@ -41,9 +42,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# ── Auth ───────────────────────────────────────────────────────────────────────
 init_session()
 require_login()
 
+# ── Sidebar Navigation ─────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("""
     <div style='text-align:center; padding: 10px 0 20px 0;'>
@@ -77,16 +80,22 @@ with st.sidebar:
     if not is_admin():
         PAGES.pop("👥 Quản lý Users", None)
 
-    selected_page = st.radio("Chọn module", list(PAGES.keys()), label_visibility="collapsed")
+    selected_page = st.radio(
+        "Chọn module", list(PAGES.keys()), label_visibility="collapsed"
+    )
 
     st.markdown("---")
     if st.button("🚪 Đăng xuất", use_container_width=True):
         logout()
         st.rerun()
 
-    st.markdown("<div style='text-align:center;font-size:10px;opacity:0.6;margin-top:20px;'>v1.0.0 | IVF Tâm Anh HN</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div style='text-align:center;font-size:10px;opacity:0.6;margin-top:20px;'>"
+        "v1.0.0 | IVF Tâm Anh HN</div>",
+        unsafe_allow_html=True
+    )
 
-user = current_user()
+# ── Header ─────────────────────────────────────────────────────────────────────
 st.markdown(f"""
 <div class="main-header">
     <div>
@@ -97,6 +106,7 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
+# ── Route ──────────────────────────────────────────────────────────────────────
 page_key = PAGES[selected_page]
 if   page_key == "module1": module1_planning.render()
 elif page_key == "module2": module2_reporting.render()

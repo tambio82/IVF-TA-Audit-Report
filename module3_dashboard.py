@@ -2,15 +2,13 @@
 modules/module3_dashboard.py - Dashboard và biểu đồ thống kê
 Phiên bản nâng cấp với FMEA Radar chi tiết
 """
-import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
-
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from utils.db import get_db, get_plans, get_department_map
+from db import get_db, get_plans, get_department_map
 
 FOLLOW_UP_LABELS = {
     "no_action": "Không hành động thêm",

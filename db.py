@@ -1,8 +1,7 @@
 """
-utils/db.py - Supabase database connection and helper functions
+db.py - Supabase database connection and helper functions
 """
-import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
-
+import os
 import streamlit as st
 from supabase import create_client, Client
 from dotenv import load_dotenv
@@ -14,7 +13,7 @@ def get_supabase_client() -> Client:
     url = os.environ.get("SUPABASE_URL") or st.secrets.get("SUPABASE_URL", "")
     key = os.environ.get("SUPABASE_KEY") or st.secrets.get("SUPABASE_KEY", "")
     if not url or not key:
-        st.error("❌ Thiếu cấu hình SUPABASE_URL hoặc SUPABASE_KEY. Vui lòng kiểm tra file .env hoặc secrets.")
+        st.error("❌ Thiếu cấu hình SUPABASE_URL hoặc SUPABASE_KEY.")
         st.stop()
     return create_client(url, key)
 
@@ -22,8 +21,6 @@ def get_supabase_client() -> Client:
 def get_db() -> Client:
     return get_supabase_client()
 
-
-# ── Helpers ─────────────────────────────────────────────────────────────────
 
 def fetch_all(table: str, filters: dict = None, order: str = None):
     db = get_db()
@@ -73,8 +70,6 @@ def fetch_view(view: str, filters: dict = None, order: str = None):
     return q.execute().data or []
 
 
-# ── Department helpers ───────────────────────────────────────────────────────
-
 def get_departments(active_only=True):
     db = get_db()
     q = db.table("departments").select("*").order("sort_order")
@@ -87,8 +82,6 @@ def get_department_map():
     depts = get_departments()
     return {d["id"]: d["name"] for d in depts}
 
-
-# ── Plan helpers ─────────────────────────────────────────────────────────────
 
 def get_plans(year: int = None):
     db = get_db()

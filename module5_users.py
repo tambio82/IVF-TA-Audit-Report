@@ -1,11 +1,9 @@
 """
 modules/module5_users.py - Quản lý người dùng
 """
-import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
-
 import streamlit as st
-from utils.db import get_db, fetch_all, insert_record, update_record, delete_record
-from utils.auth import hash_password, is_admin, current_user
+from db import get_db, fetch_all, insert_record, update_record, delete_record
+from auth import hash_password, is_admin, current_user
 
 ROLES = {
     "admin": "👑 Admin (toàn quyền)",

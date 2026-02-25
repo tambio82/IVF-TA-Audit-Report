@@ -1,14 +1,12 @@
 """
 modules/module2_reporting.py - Báo cáo kết quả công việc Audit
 """
-import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
-
 import streamlit as st
-from utils.db import (
+from db import (
     get_db, insert_record, update_record, delete_record, fetch_view,
     get_plans, get_objectives_for_plan, get_kpis_for_objective, get_department_map
 )
-from utils.auth import current_user
+from auth import current_user
 
 FOLLOW_UP_OPTIONS = {
     "no_action": "✅ Không hành động gì thêm",
@@ -60,7 +58,7 @@ def render():
         return
 
     # Show plan summary
-    from modules.module1_planning import AUDIT_LEVELS, AUDIT_NATURES, ISSUE_TYPES
+    from module1_planning import AUDIT_LEVELS, AUDIT_NATURES, ISSUE_TYPES
     with st.container():
         col1, col2, col3 = st.columns(3)
         col1.info(f"**Cấp độ:** {AUDIT_LEVELS.get(sel_plan['audit_level'], '')}")

@@ -1,16 +1,14 @@
 """
 modules/module4_export.py - Xuất báo cáo
 """
-import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
-
 import streamlit as st
 import pandas as pd
 from io import BytesIO
-from utils.db import (
+from db import (
     get_db, get_plans, get_objectives_for_plan,
     get_kpis_for_objective, get_department_map
 )
-from modules.module1_planning import AUDIT_LEVELS, AUDIT_NATURES, ISSUE_TYPES
+from module1_planning import AUDIT_LEVELS, AUDIT_NATURES, ISSUE_TYPES
 
 
 def render():

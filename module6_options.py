@@ -1,11 +1,9 @@
 """
 modules/module6_options.py - Quản lý cấu hình và biến số
 """
-import sys, os; _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); sys.path.insert(0, _root) if _root not in sys.path else None
-
 import streamlit as st
-from utils.db import get_db, insert_record, update_record, delete_record, fetch_all
-from utils.auth import is_admin
+from db import get_db, insert_record, update_record, delete_record, fetch_all
+from auth import is_admin
 
 
 def render():
